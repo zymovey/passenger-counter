@@ -2,16 +2,12 @@
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import QDir, Qt, QSize, QFileInfo
-from PyQt6.QtWidgets import (QApplication, QCheckBox, QColorDialog, QDialog,
-        QErrorMessage, QFileDialog, QFontDialog, QFrame, QGridLayout,
-        QInputDialog, QLabel, QLineEdit, QMessageBox, QPushButton)
+from PyQt6.QtCore import QDir, QSize
+from PyQt6.QtWidgets import (QApplication, QDialog,
+                             QErrorMessage, QFileDialog, QGridLayout,
+                             QInputDialog, QLabel, QLineEdit, QPushButton)
 
 class Dialog(QDialog):
-    MESSAGE = "<p>Message boxes have a caption, a text, and up to three " \
-            "buttons, each with standard or custom texts.</p>" \
-            "<p>Click a button to close the message box. Pressing the Esc " \
-            "button will activate the detected escape button (if any).</p>"
 
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
@@ -20,18 +16,13 @@ class Dialog(QDialog):
 
         self.errorMessageDialog = QErrorMessage(self)
 
-        #frameStyle = QFrame.Sunken | QFrame.Panel
-
         self.selectLabel = QLabel()
-        #self.integerLabel.setFrameStyle(frameStyle)
         self.selectButton = QPushButton("Выбрать файл")
 
         self.startLabel = QLabel()
-        #self.doubleLabel.setFrameStyle(frameStyle)
         self.startButton = QPushButton("СТАРТ")
 
         self.stopLabel = QLabel()
-        #self.itemLabel.setFrameStyle(frameStyle)
         self.stopButton = QPushButton("СТОП")
 
         self.selectButton.clicked.connect(self.showDialog)
@@ -56,13 +47,8 @@ class Dialog(QDialog):
         home_dir = str(Path.home())
         fname = QFileDialog.getOpenFileName(self, 'Open file', home_dir)
 
-
         if fname[0]:
             f = open(fname[0], 'r')
-            #with f:
-                #data = f.read()
-                #self.selectLabel.setText(data)
-                #self.selectLabel.setText(F)
             self.selectLabel.setText(f.name)
 
     def start(self):
@@ -85,7 +71,6 @@ class Dialog(QDialog):
         if ok and text != '':
             self.selectLabel.setText(text)
 
-                #self.textEdit.setText(data)
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     dialog = Dialog()
